@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:profile_app/src/pages/welcomePage/welcomePage_view_model.dart';
 import 'package:profile_app/src/widgets/user_circle_avatar.dart';
 import 'package:profile_app/src/pages/edit_page/edit_view.dart';
 import 'package:provider/provider.dart';
+import 'package:profile_app/src/model/text_data.dart';
 
 class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<WelcomeViewModel>(context);
+    final model = Provider.of<TextData>(context);
     model.getData();
     return Scaffold(
       floatingActionButton: Container(

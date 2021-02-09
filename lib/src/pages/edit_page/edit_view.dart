@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:profile_app/src/pages/welcomePage/welcomePage_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:profile_app/src/model/text_data.dart';
 
 class EditView extends StatelessWidget {
   String newName;
@@ -8,7 +8,7 @@ class EditView extends StatelessWidget {
   String newMail;
   @override
   Widget build(BuildContext context) {
-    final modal = Provider.of<WelcomeViewModel>(context);
+    final model = Provider.of<TextData>(context);
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
       color: Colors.black,
@@ -110,7 +110,7 @@ class EditView extends StatelessWidget {
                     if (newName.isNotEmpty &&
                         newNumber.isNotEmpty &&
                         newMail.isNotEmpty) {
-                      modal.UpdateAll(newName, newNumber, newMail);
+                      model.UpdateAll(newName, newNumber, newMail);
                       Navigator.pop(context);
                     }
                   },

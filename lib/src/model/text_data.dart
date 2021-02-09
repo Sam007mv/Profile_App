@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TextData extends ChangeNotifier {
@@ -6,48 +6,52 @@ class TextData extends ChangeNotifier {
   String phoneNumber = '';
   String email = '';
 
+  void UpdateAll(String currentName, String currentNumber, String currentMail) {
+    name = currentName;
+    phoneNumber = currentNumber;
+    email = currentMail;
+    saveData();
+    notifyListeners();
+  }
+
   saveData() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('name', name);
-    prefs.setString('number', phoneNumber);
-    prefs.setString('mail', email);
+    prefs.setString('savename', name);
+    prefs.setString('savenumber', phoneNumber);
+    prefs.setString('savemail', email);
   }
 
-  readName() async {
+  getData() async {
+    name = await readName();
+    phoneNumber = await readNumber();
+    email = await readmail();
+    notifyListeners();
+  }
+
+  Future<String> readName() async {
     final prefs = await SharedPreferences.getInstance();
-    name = prefs.getString('name') ?? '';
+    String nm = prefs.getString('savename');
+    if (nm == null)
+      return '';
+    else
+      return nm;
   }
 
-  readNumber() async {
+  Future<String> readNumber() async {
     final prefs = await SharedPreferences.getInstance();
-    phoneNumber = prefs.getString('number') ?? '';
+    String ph = prefs.getString('savenumber');
+    if (ph == null)
+      return '';
+    else
+      return ph;
   }
 
-  readmail() async {
+  Future<String> readmail() async {
     final prefs = await SharedPreferences.getInstance();
-    email = prefs.getString('mail') ?? '';
+    String em = prefs.getString('savemail');
+    if (em == null)
+      return '';
+    else
+      return em;
   }
-
-  // readData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.getString('name');
-  //   prefs.getString('number');
-  //   prefs.getString('mail');
-  // }
-
-  // saveData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-
-  //   prefs.setString('name', name);
-  //   prefs.setString('number', phoneNumber);
-  //   prefs.setString('mail', email);
-  // String getCurrentData() {
-  //   prefs.getString(name);
-  //   prefs.getString(phoneNumber);
-  //   prefs.getString(email);
-  // }
-
-  // String value = getCurrentData();
-  // prefs.setString('data', value);
-  // }
 }
